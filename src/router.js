@@ -13,12 +13,19 @@ Vue.use(VueRouter);
 
 const routes = [
     {
+        path: '*',
+        redirect: '/home'
+    },
+    {
         path: "/home",
         component: home
     },
     {
         path: "/category",
-        component: category
+        component: category,
+        meta: {
+            title: '购物车'
+        }
     },
     {
         path: "/shoppingCart",
@@ -31,7 +38,15 @@ const routes = [
     {
         path: "/addressList",
         component: addressList
+    },
+    {
+        path: "/goods/goodsDetail",
+        component: () => import('./views/goods/goodsDetail'),
+        meta: {
+            title: '商品详情'
+        }
     }
+
 ]
 
 const router = new VueRouter({

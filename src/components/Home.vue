@@ -9,11 +9,10 @@
                     @cancel="onCancel"
             />
         </form>
-        <van-swipe :autoplay="3000" indicator-color="white">
-            <van-swipe-item>1</van-swipe-item>
-            <van-swipe-item>2</van-swipe-item>
-            <van-swipe-item>3</van-swipe-item>
-            <van-swipe-item>4</van-swipe-item>
+        <van-swipe :autoplay="3000">
+          <van-swipe-item v-for="(image, index) in images" :key="index">
+            <img v-lazy="image" />
+          </van-swipe-item>
         </van-swipe>
         <van-grid :column-num="3">
             <van-grid-item
@@ -26,20 +25,24 @@
     </div>
 </template>
 <script>
-    import {Search, Swipe, SwipeItem, Grid, GridItem} from 'vant';
+    import {Search, Swipe, SwipeItem, Grid, GridItem,Lazyload } from 'vant';
 
     export default {
         data() {
             return {
-                msg: "首页"
+              images: [
+                'https://img.yzcdn.cn/vant/apple-1.jpg',
+                'https://img.yzcdn.cn/vant/apple-2.jpg'
+              ]
             }
-        },
+          },
         components: {
             [Search.name]: Search,
             [Swipe.name]: Swipe,
             [SwipeItem.name]: SwipeItem,
             [Grid.name]: Grid,
-            [GridItem.name]: GridItem
+            [GridItem.name]: GridItem,
+            [Lazyload.name]: Lazyload
         }
     }
 </script>

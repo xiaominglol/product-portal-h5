@@ -18,17 +18,10 @@
                 </van-sidebar>
             </van-col>
             <van-col span="16">
-                <van-grid :border="false" :column-num="3">
-                    <van-grid-item>
-                        <van-image src="https://img.yzcdn.cn/vant/apple-1.jpg"/>
-                    </van-grid-item>
-                    <van-grid-item>
-                        <van-image src="https://img.yzcdn.cn/vant/apple-2.jpg"/>
-                    </van-grid-item>
-                    <van-grid-item>
-                        <van-image src="https://img.yzcdn.cn/vant/apple-3.jpg"/>
-                    </van-grid-item>
-                </van-grid>
+            <van-grid clickable :column-num="2">
+              <van-grid-item icon="home-o" text="路由跳转" replace to="/goods/goodsDetail" />
+              <van-grid-item icon="search" text="URL 跳转" url="/vant/mobile.html" />
+            </van-grid>
             </van-col>
         </van-row>
     </div>

@@ -1,5 +1,10 @@
 # product-portal-h5
 
+```
+
+npm install less less-loader --save-dev
+```
+
 ## Project setup
 ```
 npm install
