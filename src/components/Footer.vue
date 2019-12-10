@@ -1,10 +1,10 @@
 <template>
     <div class="hello">
-        <van-tabbar v-model="active" @change="onChange">
-            <van-tabbar-item icon="home-o">首页</van-tabbar-item>
-            <van-tabbar-item icon="search">分类</van-tabbar-item>
-            <van-tabbar-item icon="setting-o">购物车</van-tabbar-item>
-            <van-tabbar-item icon="friends-o">我的</van-tabbar-item>
+        <van-tabbar v-model="active" @change="onChange" route>
+            <van-tabbar-item icon="home-o" replace to="/home">首页</van-tabbar-item>
+            <van-tabbar-item icon="search" replace to="/category">分类</van-tabbar-item>
+            <van-tabbar-item icon="setting-o" replace to="/shoppingCart">购物车</van-tabbar-item>
+            <van-tabbar-item icon="friends-o" replace to="/my">我的</van-tabbar-item>
         </van-tabbar>
     </div>
 </template>
@@ -23,10 +23,10 @@
             [TabbarItem.name]: TabbarItem
         },
         methods: {
-            onChange(index) {
+            // onChange(index) {
                 // Notify({ type: 'primary', message: index });
-                alert(index);
-            }
+            // alert(index);
+            // }
         }
     }
 </script>
