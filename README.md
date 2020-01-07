@@ -1,8 +1,11 @@
 # product-portal-h5
 
+
+# 基础框架
 ```
 
 npm install less less-loader --save-dev
+npm install vue-ydui --save
 ```
 
 ## Project setup
