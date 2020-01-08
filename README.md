@@ -1,8 +1,10 @@
 # product-portal-h5
 
 ```
-
+样式必备
 npm install less less-loader --save-dev
+cookie必备
+npm install --save js-cookie
 ```
 
 ## Project setup
