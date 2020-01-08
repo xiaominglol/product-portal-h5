@@ -3,9 +3,11 @@
 
 # 基础框架
 ```
-
+样式必备
 npm install less less-loader --save-dev
 npm install vue-ydui --save
+cookie必备
+npm install --save js-cookie
 ```
 
 ## Project setup
