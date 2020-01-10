@@ -1,12 +1,11 @@
 <template>
     <div id="app">
         <router-view/>
-        <Footer/>
+        <Footer v-show="$route.meta.showFooter"/>
     </div>
 </template>
 
 <script>
-    // import HelloWorld from './components/HelloWorld.vue'
     import Footer from './components/Footer.vue'
 
     export default {

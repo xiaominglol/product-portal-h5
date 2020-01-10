@@ -10,8 +10,8 @@ export function getUserList(queryParam) {
         url: "/api/member",
         method: 'get',
         params: {
-            'page': queryParam.page,
-            'size': queryParam.limit,
+            'pageNum': queryParam.page,
+            'pageSize': queryParam.limit,
             'username': queryParam.username,
             'status': queryParam.status
         }
