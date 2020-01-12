@@ -9,7 +9,20 @@
     <!-- 开启 safe-area-inset-bottom 属性 -->
     <van-number-keyboard safe-area-inset-bottom/>
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <link rel="stylesheet" href="/src/assets/css/reset.css">
     <title>product-portal-h5</title>
+<!--    解决点击响应延时 0.3s 问题-->
+    <script src="https://as.alipayobjects.com/g/component/fastclick/1.0.6/fastclick.js"></script>
+    <script>
+        if ('addEventListener' in document) {
+            document.addEventListener('DOMContentLoaded', function() {
+                FastClick.attach(document.body);
+            }, false);
+        }
+        if(!window.Promise) {
+            document.writeln('<script src="https://as.alipayobjects.com/g/component/es6-promise/3.2.2/es6-promise.min.js"'+'>'+'<'+'/'+'script>');
+        }
+    </script>
 </head>
 <body>
 <noscript>

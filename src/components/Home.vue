@@ -22,6 +22,17 @@
                     text="文字"
             />
         </van-grid>
+        <van-grid :border="false" :column-num="3">
+            <van-grid-item>
+                <van-image src="src/assets/images/nav/1.jpg" />
+            </van-grid-item>
+            <van-grid-item>
+                <van-image src="https://img.yzcdn.cn/vant/apple-2.jpg" />
+            </van-grid-item>
+            <van-grid-item>
+                <van-image src="https://img.yzcdn.cn/vant/apple-3.jpg" />
+            </van-grid-item>
+        </van-grid>
         <van-row class="col-2">
             <van-col class="row-2" span="6" v-for="(v,index) in badge.icon" :key='v.id'>
                 <a href="#">
