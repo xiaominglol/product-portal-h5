@@ -24,7 +24,7 @@
         },
         methods: {
             // onChange(index) {
-                // Notify({ type: 'primary', message: index });
+            // Notify({ type: 'primary', message: index });
             // alert(index);
             // }
         }

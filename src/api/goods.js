@@ -6,7 +6,11 @@ const BASE_URL = '/api'
  * @param queryParam
  * @returns {AxiosPromise}
  */
-export const getUserList1 = ({pageNum, pageSize}) => request(`${BASE_URL}/member`, {pageNum, pageSize})
+/**
+ * 获取商品分类
+ * @returns {AxiosPromise}
+ */
+export const getGoodsCategory = () => request(`${BASE_URL}/goods/category`)
 
 export function getUserList(queryParam) {
     return request({

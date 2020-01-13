@@ -1,150 +1,125 @@
 <template>
-    <div class="productSort">
-        <form @submit.prevent="submitForm">
-            <div class="header acea-row row-center-wrapper" ref="header">
-                <div class="acea-row row-between-wrapper input">
-                    <span class="iconfont icon-sousuo"></span>
-                    <input type="text" placeholder="搜索商品信息" v-model="search" />
-                </div>
-            </div>
-        </form>
-        <div class="aside">
-            <div
-                    class="item acea-row row-center-wrapper"
-                    :class="index === navActive ? 'on' : ''"
-                    v-for="(item, index) in category"
-                    :key="index"
-                    @click="asideTap(index)"
-            >
-                <span>{{ item.cate_name }}</span>
-            </div>
-        </div>
-        <div class="conter" @scroll.native="onScroll">
-            <div class="listw" v-for="(item, index) in category" :key="index">
-                <div class="title acea-row row-center-wrapper" ref="title">
-                    <div class="line"></div>
-                    <div class="name">{{ item.cate_name }}</div>
-                    <div class="line"></div>
-                </div>
-                <div class="list acea-row">
-                    <router-link
-                            class="item acea-row row-column row-middle"
-                            v-for="(child, index) in item.children"
-                            :key="index"
-                            :to="{
-              path: '/goods_list',
-              query: { id: child.id, title: child.cate_name }
-            }"
-                    >
-                        <div class="picture"><img :src="child.pic" /></div>
-                        <div class="name line1">{{ child.cate_name }}</div>
-                    </router-link>
-                </div>
-            </div>
-        </div>
-        <div style="height:1.2rem;"></div>
+    <div id="category">
+        <Search/>
+        <van-tree-select
+                height="100vh"
+                :items="items"
+                :main-active-index.sync="activeIndex"
+                @click-nav="clickNav"
+                @click-item1="clickItem"
+        >
+            <!--            <template slot="content">-->
+            <!--                <van-image v-if="activeIndex === 0" src="https://img.yzcdn.cn/vant/apple-1.jpg"/>-->
+            <!--                <van-image v-if="activeIndex === 1" src="https://img.yzcdn.cn/vant/apple-2.jpg"/>-->
+            <!--            </template>-->
+        </van-tree-select>
     </div>
 </template>
-<!--<script>-->
-<!--    import debounce from "lodash.debounce";-->
-<!--    import {getCategory} from "@api/store";-->
-<!--    import {trim} from "../../utils";-->
+<script>
+    import Search from '../components/Search.vue'
+    import {getGoodsCategory} from '../api/goods'
+    import {TreeSelect} from 'vant';
 
-<!--    export default {-->
-<!--        name: "GoodsClass",-->
-<!--        components: {},-->
-<!--        props: {},-->
-<!--        data: function () {-->
-<!--            return {-->
-<!--                category: [],-->
-<!--                navActive: 0,-->
-<!--                search: "",-->
-<!--                lock: false-->
-<!--            };-->
-<!--        },-->
-<!--        watch: {-->
-<!--            "$route.params.pid": function (n) {-->
-<!--                // console.log(n);-->
-<!--                if (n) {-->
-<!--                    this.activeCateId(n);-->
-<!--                }-->
-<!--            }-->
-<!--        },-->
-<!--        mounted: function () {-->
-<!--            document.addEventListener("scroll", this.onScroll, false);-->
-<!--            this.loadCategoryData();-->
-<!--        },-->
-<!--        methods: {-->
-<!--            activeCateId(n) {-->
-<!--                let index = 0;-->
-<!--                n = parseInt(n);-->
-<!--                if (!n) return;-->
-<!--                this.category.forEach((cate, i) => {-->
-<!--                    if (cate.id === n) index = i;-->
-<!--                });-->
+    export default {
+        name: "category",
+        data() {
+            return {
+                activeIndex: 0,
+                items: [
+                    {
+                        // 导航名称
+                        text: '所有城市',
+                        // 导航名称右上角徽标
+                        info: 3,
+                        // 是否在导航名称右上角显示小红点
+                        dot: true,
+                        // 导航节点额外类名
+                        // className: 'my-class',
+                        // 该导航下所有的可选项
+                        children: [
+                            {
+                                // 名称
+                                text: '温州',
+                                // id，作为匹配选中状态的标识符
+                                id: 1
+                            },
+                            {
+                                text: '杭州',
+                                id: 2
+                            }
+                        ]
+                    }, {
+                        // 导航名称
+                        text: '所有城市',
+                        // 导航名称右上角徽标
+                        info: 3,
+                        // 是否在导航名称右上角显示小红点
+                        dot: true,
+                        // 导航节点额外类名
+                        // className: 'my-class',
+                        // 该导航下所有的可选项
+                        children: [
+                            {
+                                // 名称
+                                text: '温州',
+                                // id，作为匹配选中状态的标识符
+                                id: 1
+                            },
+                            {
+                                text: '杭州',
+                                id: 2
+                            }
+                        ]
+                    }, {
+                        // 导航名称
+                        text: '所有城市',
+                        // 导航名称右上角徽标
+                        info: 3,
+                        // 是否在导航名称右上角显示小红点
+                        dot: true,
+                        // 导航节点额外类名
+                        // className: 'my-class',
+                        // 该导航下所有的可选项
+                        children: [
+                            {
+                                // 名称
+                                text: '温州22',
+                                // id，作为匹配选中状态的标识符
+                                id: 1
+                            },
+                            {
+                                text: '杭州11',
+                                id: 2
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        created() {
+            // 页面初始化后执行查询第一页用户
+            this.getGoodsCategory()
+        },
+        methods: {
+            getGoodsCategory() {
+                getGoodsCategory().then(response => {
+                    let res = response.data;
+                    console.log("res111", res)
+                    // this.items = res.data;
+                    console.log("items", this.items)
+                });
+            },
+            clickNav() {
+                alert("click-nav");
+            },
+            clickItem() {
+                alert("clickItem");
+            }
 
-<!--                if (index !== this.navActive) {-->
-<!--                    this.asideTap(index);-->
-<!--                }-->
-<!--            },-->
-<!--            loadCategoryData() {-->
-<!--                getCategory().then(res => {-->
-<!--                    this.category = res.data;-->
-<!--                    this.$nextTick(() => {-->
-<!--                        if (this.$route.params.pid) this.activeCateId(this.$route.params.pid);-->
-<!--                        else this.onScroll();-->
-<!--                    });-->
-<!--                });-->
-<!--            },-->
-<!--            submitForm: function () {-->
-<!--                var val = trim(this.search);-->
-<!--                if (val) {-->
-<!--                    this.$router.push({-->
-<!--                        path: "/goods_list",-->
-<!--                        query: {s: val}-->
-<!--                    });-->
-<!--                    setTimeout(() => (this.search = ""), 500);-->
-<!--                }-->
-<!--            },-->
-<!--            asideTap(index) {-->
-<!--                const top =-->
-<!--                    this.$refs.title[index].offsetTop - -->
-<!--                    this.$refs.header.offsetHeight - -->
-<!--                    window.scrollY;-->
-
-<!--                this.lock = true;-->
-
-<!--                window.scrollBy({top, left: 0, behavior: "smooth"});-->
-<!--                this.navActive = index;-->
-<!--            },-->
-<!--            onScroll: debounce(function () {-->
-<!--                if (this.lock) {-->
-<!--                    this.lock = false;-->
-<!--                    return;-->
-<!--                }-->
-<!--                const headerHeight = this.$refs.header.offsetHeight,-->
-<!--                    {scrollY} = window,-->
-<!--                    titles = this.$refs.title;-->
-<!--                titles.reduce((initial, title, index) => {-->
-<!--                    if (initial) return initial;-->
-<!--                    const parent = title.parentNode || title.parentElement;-->
-<!--                    if (-->
-<!--                        scrollY + headerHeight + 15 <-->
-<!--                        title.offsetTop + parent.offsetHeight-->
-<!--                    ) {-->
-<!--                        initial = true;-->
-<!--                        this.navActive = index;-->
-<!--                    }-->
-<!--                    // else if (innerHeight + scrollY + 15 > offsetHeight) {-->
-<!--                    //   this.navActive = titles.length - 1;-->
-<!--                    //   initial = true;-->
-<!--                    // }-->
-<!--                    return initial;-->
-<!--                }, false);-->
-<!--            }, 500)-->
-<!--        },-->
-<!--        beforeDestroy: function () {-->
-<!--            document.removeEventListener("scroll", this.onScroll, false);-->
-<!--        }-->
-<!--    };-->
-<!--</script>-->
+        },
+        components: {
+            Search,
+            [TreeSelect.name]: TreeSelect,
+        }
+    };
+</script>
