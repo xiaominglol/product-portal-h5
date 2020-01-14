@@ -1,78 +1,42 @@
 import request from '../utils/request'
 
-const BASE_URL = '/api'
-/**
- * 分页查询系统用户列表
- * @param queryParam
- * @returns {AxiosPromise}
- */
+const BASE_URL = '/api/goods'
+
 /**
  * 获取商品分类
  * @returns {AxiosPromise}
  */
-export const getGoodsCategory = () => request(`${BASE_URL}/goods/category`)
+export const getGoodsCategory = () => request(`${BASE_URL}/category`)
 
-export function getUserList(queryParam) {
+/**
+ * 通过分类id获取商品
+ * @param categoryId 分类id
+ * @returns {AxiosPromise}
+ */
+export function getGoods(categoryId) {
     return request({
-        url: "/api/member",
+        url: `${BASE_URL}`,
         method: 'get',
-        params: {
-            'pageNum': queryParam.page,
-            'pageSize': queryParam.limit,
-            'username': queryParam.username,
-            'status': queryParam.status
-        }
+        params: {'categoryId': categoryId}
     });
 }
 
 /**
- * 禁用用户
- * @param ids 用户编号集合
+ * 商品详细
+ * @param goodsId
  * @returns {AxiosPromise}
  */
-export function disableUser(ids) {
-    return request({
-        url: '/system/user/actions/disable',
-        method: 'post',
-        data: {'userIds': Array.of(ids)}
-    });
-}
+export const getGoodsDetail = (goodsId) => request(`${BASE_URL}/${goodsId}`)
 
 /**
- * 启用用户
- * @param ids 用户编号集合
+ * 通过商品id获取商品库存
+ * @param goodsId   商品id
  * @returns {AxiosPromise}
  */
-export function enableUser(ids) {
+export function getGoodsStock(goodsId) {
     return request({
-        url: '/system/user/actions/enable',
-        method: 'post',
-        data: {'userIds': Array.of(ids)}
-    });
-}
-
-/**
- * 删除系统用户
- * @param ids 用户编号集合
- * @returns {AxiosPromise}
- */
-export function removeUser(ids) {
-    return request({
-        url: '/system/user',
-        method: 'delete',
-        data: {'userIds': Array.of(ids)}
-    });
-}
-
-/**
- * 创建用户
- * @param user
- * @returns {AxiosPromise}
- */
-export function createUser(user) {
-    return request({
-        url: '/system/user',
-        method: 'post',
-        data: user
+        url: `${BASE_URL}/stock`,
+        method: 'get',
+        params: {'goodsId': goodsId}
     });
 }

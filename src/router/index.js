@@ -2,7 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 // 引入组件
 import home from "../components/Home.vue";
-import category from "../components/Category.vue";
+import category from "../views/goods/Category.vue";
 import shoppingCart from "../components/ShoppingCart.vue";
 import my from "../components/My.vue";
 import addressList from "../components/AddressList.vue";
@@ -54,8 +54,15 @@ const routes = [
         component: addressList
     },
     {
+        path: "/goods",
+        component: () => import('../views/goods/Goods'),
+        meta: {
+            title: '商品列表'
+        }
+    },
+    {
         path: "/goods/goodsDetail",
-        component: () => import('../views/goods/goodsDetail'),
+        component: () => import('../views/goods/GoodsDetail'),
         meta: {
             title: '商品详情'
         }
