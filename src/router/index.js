@@ -6,6 +6,7 @@ import category from "../views/goods/Category.vue";
 import shoppingCart from "../components/ShoppingCart.vue";
 import my from "../components/My.vue";
 import addressList from "../views/member/AddressList.vue";
+import login from "../components/Login.vue";
 
 // 要告诉 vue 使用 vueRouter
 Vue.use(VueRouter);
@@ -17,6 +18,11 @@ const routes = [
         meta: {
             showFooter: true
         }
+    },
+    {
+        path: "/login",
+        component: login,
+        meta: {}
     },
     {
         path: "/home",
