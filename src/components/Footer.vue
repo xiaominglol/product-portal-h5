@@ -23,10 +23,10 @@
             [TabbarItem.name]: TabbarItem
         },
         methods: {
-            // onChange(index) {
+            onChange(index) {
             // Notify({ type: 'primary', message: index });
-            // alert(index);
-            // }
+                console.log(index);
+            }
         }
     }
 </script>

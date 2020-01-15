@@ -1,6 +1,7 @@
 <template>
     <div id="app">
         <router-view/>
+        {{name}}-{{test}}
         <Footer v-show="$route.meta.showFooter"/>
     </div>
 </template>
@@ -10,6 +11,12 @@
 
     export default {
         name: 'app',
+        data() {
+            return {
+                name: this.$store.state.user,
+                test: this.$store.state.member.test,
+            }
+        },
         components: {
             Footer
         }
