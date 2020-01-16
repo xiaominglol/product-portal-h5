@@ -9,7 +9,7 @@ const BASE_URL = '/api/member'
  */
 export function login(member) {
     return request({
-        url: '/api/login',
+        url: `${BASE_URL}/login`,
         method: 'post',
         data: member
     });

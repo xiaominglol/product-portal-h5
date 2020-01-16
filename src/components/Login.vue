@@ -51,31 +51,26 @@
         <van-row type="flex" justify="center">
             <van-col span="4"></van-col>
             <van-col span="16">
-                <van-divider>温馨提示：未注册的手机号，登录时将自动注册,且代表已同意<a href="#">《用户使用协议》</a></van-divider>
+                <van-divider>温馨提示：未注册的手机号，登录时将自动注册,且代表已同意<a href="#">《用户协议和隐私政策》</a></van-divider>
             </van-col>
             <van-col span="4"></van-col>
         </van-row>
-
     </div>
 </template>
 
 <script>
     import {Button, Col, Field, Row, Tab, Tabs, Toast} from 'vant';
+    import {login} from "../api/member";
 
     export default {
         name: 'login',
         data() {
             return {
-                loginType: "sms",
-                phone: "",
-                code: "",
-                password: "",
-                disabled: true,
-                loginForm: {
-                    username: '',
-                    password: ''
-                },
-                responseResult: []
+                loginType: "sms",//登陆类型：sms短信登陆，password密码登陆
+                phone: "",//手机号
+                code: "",//验证码
+                password: "",//密码
+                disabled: true,//是否禁用发送验证码按钮
             }
         },
         computed: {
@@ -91,6 +86,12 @@
                     if (this.loginType === "sms") {
                         if (!this.code) {
                             Toast("短信验证码不能为空")
+                        } else {
+                            login({phone: this.phone, code: this.code}).then(response => {
+                                let result = response.data;
+                                this.$store.dispatch('saveMember', result)
+                                this.$router.push('/my')
+                            });
                         }
                     } else {
                         if (!this.password) {
@@ -111,7 +112,6 @@
                 } else {
                     this.loginType = "password"
                 }
-                Toast(this.loginType)
             }
         },
         components: {
