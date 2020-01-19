@@ -17,7 +17,7 @@
 </template>
 <script>
     import Search from '../../components/Search.vue'
-    import {getGoodsCategory, getGoods} from '../../api/goods'
+    import {getGoods, getGoodsCategory} from '../../api/goods'
     import {TreeSelect} from 'vant';
 
     export default {
@@ -63,7 +63,7 @@
             getGoods(categoryId) {
                 getGoods(categoryId).then(response => {
                     let result = response.data;
-                    this.$router.push({path: '/goods'})
+                    this.$router.push({name: 'goods', params: {goods: result}})
                     console.log("haha", result)
                 });
             },

@@ -15,6 +15,11 @@
     import {Search} from 'vant';
 
     export default {
+        data(){
+            return{
+                value:""
+            }
+        },
         methods: {
             onSearch() {
                 alert("search");
