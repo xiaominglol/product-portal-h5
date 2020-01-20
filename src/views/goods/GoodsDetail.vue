@@ -158,6 +158,7 @@
                     {text: '时间最新', value: 'b'},
                     {text: '回复最多', value: 'c'},
                 ],
+                // sku参数开始
                 show: false,
                 quotaUsed: 0,
                 goodsId: 0,
@@ -239,6 +240,7 @@
                 messageConfig: {
                     // 数据结构见下方文档
                 }
+                // sku参数结束
             };
         },
 
