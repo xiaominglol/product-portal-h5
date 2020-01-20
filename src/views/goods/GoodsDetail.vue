@@ -194,7 +194,7 @@
 
         methods: {
             formatPrice() {
-                return '¥' + (this.goods.price / 100).toFixed(2);
+                return '¥' + (this.items.price / 100).toFixed(2);
             },
 
             onClickCart() {
