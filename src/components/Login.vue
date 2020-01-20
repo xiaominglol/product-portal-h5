@@ -23,7 +23,7 @@
                                     placeholder="请输入短信验证码"
                             >
                                 <van-button slot="button" v-bind:disabled="!checkPhone" size="small" type="primary"
-                                            @click="sendSms">发送验证码
+                                            @click="sendSms">{{countdown>0?`已发送(${countdown}s)`:'发送验证码'}}
                                 </van-button>
                             </van-field>
                         </van-cell-group>
@@ -59,7 +59,7 @@
 </template>
 
 <script>
-    import {Button, Col, Field, Row, Tab, Tabs, Toast} from 'vant';
+    import {Button, CellGroup, Col, Divider, Field, Row, Tab, Tabs, Toast} from 'vant';
     import {login} from "../api/member";
 
     export default {
@@ -71,6 +71,8 @@
                 code: "",//验证码
                 password: "",//密码
                 disabled: true,//是否禁用发送验证码按钮
+                countdown: 0,//倒计时
+                active: 0//tab切换下标
             }
         },
         computed: {
@@ -102,6 +104,31 @@
             },
             sendSms() {
                 Toast("发送成功")
+                // 如果当前没有计时
+                if (!this.countdown) {
+                    // 启动倒计时
+                    this.countdown = 120
+                    this.intervalId = setInterval(() => {
+                        this.countdown--
+                        if (this.countdown <= 0) {
+                            // 停止计时
+                            clearInterval(this.intervalId)
+                        }
+                    }, 1000)
+
+                    // 发送ajax请求(向指定手机号发送验证码短信)
+                    // const result = await reqSendCode(this.phone)
+                    // if(result.code===1) {
+                    //     // 显示提示
+                    //     this.showAlert(result.msg)
+                    //     // 停止计时
+                    //     if(this.computeTime) {
+                    //         this.computeTime = 0
+                    //         clearInterval(this.intervalId)
+                    //         this.intervalId = undefined
+                    //     }
+                    // }
+                }
             },
             forgetPassword() {
                 Toast("忘记密码")
@@ -122,7 +149,25 @@
             [Field.name]: Field,
             [Button.name]: Button,
             [Toast.name]: Toast,
+            [CellGroup.name]: CellGroup,
+            [Divider.name]: Divider,
         }
     }
 </script>
 
+<style>
+    #login {
+        -webkit-box-align: center;
+        -moz-box-align: center;
+        -o-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        -moz-box-pack: center;
+        -o-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+    }
+</style>

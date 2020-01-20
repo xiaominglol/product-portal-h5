@@ -15,9 +15,9 @@
     import {Search} from 'vant';
 
     export default {
-        data(){
-            return{
-                value:""
+        data() {
+            return {
+                value: ""
             }
         },
         methods: {

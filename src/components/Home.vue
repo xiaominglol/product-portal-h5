@@ -44,10 +44,10 @@
     </div>
 </template>
 <script>
-    import {Col, Grid, GridItem, Lazyload, Row, Swipe, SwipeItem} from 'vant';
+    import {Col, Divider, Grid, GridItem, Lazyload, Row, Swipe, SwipeItem} from 'vant';
     import {getUserList} from '../api/system-user'
     import Search from '../components/Search.vue'
-    import {Divider} from 'vant';
+
     export default {
         data() {
             return {

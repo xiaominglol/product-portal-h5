@@ -1,7 +1,7 @@
 // import {login} from '../../api/member'
 
 const state = {
-    goods: [{name:'haha'}]
+    goods: [{name: 'haha'}]
 }
 
 const getters = {

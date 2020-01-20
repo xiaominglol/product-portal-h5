@@ -18,19 +18,19 @@
 
         <van-row v-show="active == 0" style="margin-top: 46px">
             <van-swipe class="goods-swipe" :autoplay="3000" style="margin-top: inherit">
-                <van-swipe-item v-for="thumb in goods.thumb" :key="thumb">
+                <van-swipe-item v-for="thumb in items.thumb" :key="thumb">
                     <img :src="thumb">
                 </van-swipe-item>
             </van-swipe>
 
             <van-cell-group>
                 <van-cell>
-                    <div class="goods-title">{{ goods.title }}</div>
-                    <div class="goods-price">{{ formatPrice(goods.price) }}</div>
+                    <div class="goods-title">{{ items.title }}</div>
+                    <div class="goods-price">{{ formatPrice(items.price) }}</div>
                 </van-cell>
                 <!--                <van-cell class="goods-express">-->
-                <!--                    <van-col span="10">运费：{{ goods.express }}</van-col>-->
-                <!--                    <van-col span="14">剩余：{{ goods.remain }}</van-col>-->
+                <!--                    <van-col span="10">运费：{{ items.express }}</van-col>-->
+                <!--                    <van-col span="14">剩余：{{ items.remain }}</van-col>-->
                 <!--                </van-cell>-->
             </van-cell-group>
 
@@ -45,9 +45,8 @@
                 </van-cell>
             </van-cell-group>
 
-
             <van-cell-group class="goods-cell-group">
-                <van-cell title="已选" is-link @click="sorry"/>
+                <van-cell title="已选" is-link @click="showSku"/>
             </van-cell-group>
         </van-row>
 
@@ -68,8 +67,8 @@
             </div>
 
             <van-dropdown-menu>
-                <van-dropdown-item v-model="value1" :options="option1" />
-                <van-dropdown-item v-model="value2" :options="option2" />
+                <van-dropdown-item v-model="value1" :options="option1"/>
+                <van-dropdown-item v-model="value2" :options="option2"/>
             </van-dropdown-menu>
         </van-row>
 
@@ -92,6 +91,19 @@
                 立即购买
             </van-goods-action-button>
         </van-goods-action>
+
+        <van-sku
+                v-model="show"
+                :sku="sku"
+                :goods="goods"
+                :goods-id="goodsId"
+                :quota="quota"
+                :quota-used="quotaUsed"
+                :hide-stock="sku.hide_stock"
+                :message-config="messageConfig"
+                @buy-clicked="onBuyClicked"
+                @add-cart="onAddCartClicked"
+        />
     </div>
 </template>
 
@@ -100,17 +112,20 @@
         Cell,
         CellGroup,
         Col,
+        DropdownItem,
+        DropdownMenu,
         GoodsAction,
         GoodsActionButton,
         GoodsActionIcon,
         Icon,
         NavBar,
+        Row,
+        Sku,
         Swipe,
         SwipeItem,
         Tab,
         Tabs,
         Tag,
-        DropdownMenu, DropdownItem,
         Toast
     } from 'vant';
 
@@ -119,6 +134,7 @@
         components: {
             [Tag.name]: Tag,
             [Col.name]: Col,
+            [Row.name]: Row,
             [Icon.name]: Icon,
             [Cell.name]: Cell,
             [CellGroup.name]: CellGroup,
@@ -130,6 +146,7 @@
             [Tab.name]: Tab,
             [Tabs.name]: Tabs,
             [NavBar.name]: NavBar,
+            [Sku.name]: Sku,
             [DropdownMenu.name]: DropdownMenu,
             [DropdownItem.name]: DropdownItem,
         },
@@ -137,7 +154,7 @@
         data() {
             return {
                 active: 0,
-                goods: {
+                items: {
                     title: '美国伽力果（约680g/3个）',
                     price: 2680,
                     express: '免运费',
@@ -150,15 +167,28 @@
                 value1: 0,
                 value2: 'a',
                 option1: [
-                    { text: '全部商品', value: 0 },
-                    { text: '新款商品', value: 1 },
-                    { text: '活动商品', value: 2 }
+                    {text: '全部商品', value: 0},
+                    {text: '新款商品', value: 1},
+                    {text: '活动商品', value: 2}
                 ],
                 option2: [
-                    { text: '默认排序', value: 'a' },
-                    { text: '时间最新', value: 'b' },
-                    { text: '回复最多', value: 'c' },
-                ]
+                    {text: '默认排序', value: 'a'},
+                    {text: '时间最新', value: 'b'},
+                    {text: '回复最多', value: 'c'},
+                ],
+                show: false,
+                quotaUsed: 0,
+                goodsId: 0,
+                quota: 0,
+                sku: {
+                    // 数据结构见下方文档
+                },
+                goods: {
+                    // 数据结构见下方文档
+                },
+                messageConfig: {
+                    // 数据结构见下方文档
+                }
             };
         },
 
@@ -170,7 +200,15 @@
             onClickCart() {
                 this.$router.push('cart');
             },
+            showSku() {
+                this.show = true
+            },
+            onBuyClicked() {
 
+            },
+            onAddCartClicked() {
+
+            },
             sorry() {
                 Toast('暂无后续逻辑~');
             },

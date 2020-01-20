@@ -17,7 +17,7 @@
                 <van-tag round type="success">自营</van-tag>
             </div>
             <div slot="tags">
-<!--                <van-tag round type="success">新品</van-tag>-->
+                <!--                <van-tag round type="success">新品</van-tag>-->
             </div>
             <div slot="title">
                 <div class="van-ellipsis">商品标题</div>
@@ -26,10 +26,10 @@
                 <div class="van-ellipsis">1200+销量 800+评价 98%好评</div>
                 <div class="van-ellipsis">华为</div>
             </div>
-<!--            <div slot="footer">-->
-<!--                <van-button size="mini">加入购物车</van-button>-->
-<!--                <van-button size="mini">立即购买</van-button>-->
-<!--            </div>-->
+            <!--            <div slot="footer">-->
+            <!--                <van-button size="mini">加入购物车</van-button>-->
+            <!--                <van-button size="mini">立即购买</van-button>-->
+            <!--            </div>-->
         </van-card>
         <div class="van-hairline--bottom"></div>
         <van-card
@@ -109,7 +109,7 @@
     };
 </script>
 <style>
-    .van-card{
-        background-color:#ffffff
+    .van-card {
+        background-color: #ffffff
     }
 </style>

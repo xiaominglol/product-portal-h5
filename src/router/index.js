@@ -60,12 +60,12 @@ const routes = [
         component: addressList
     },
     {
-        name:"goods",
+        name: "goods",
         path: "/goods",
         component: () => import('../views/goods/Goods'),
         meta: {
             title: '商品列表',
-            goods:[{name:'123'}]
+            goods: [{name: '123'}]
         }
     },
     {

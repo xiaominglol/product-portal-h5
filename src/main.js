@@ -6,8 +6,10 @@ import store from './store'
 
 Vue.config.productionTip = false
 
-Vue.use(axios)
-
+// Uncaught (in promise) TypeError: Cannot read property 'protocol' of undefined
+// Vue.use(axios)
+//https://blog.csdn.net/weixin_42707181/article/details/88688099
+Vue.prototype.$http = axios;
 
 new Vue({
     router,
